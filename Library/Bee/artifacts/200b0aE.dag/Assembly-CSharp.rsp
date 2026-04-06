@@ -361,6 +361,7 @@
 "Assets/orbit_camera.cs"
 "Assets/pc_viewer.cs"
 "Assets/point_cloud_sub.cs"
+"Assets/point_cloud_sub_local.cs"
 "Assets/RosMessages/Geometry/msg/AccelMsg.cs"
 "Assets/RosMessages/Geometry/msg/AccelStampedMsg.cs"
 "Assets/RosMessages/Geometry/msg/AccelWithCovarianceMsg.cs"

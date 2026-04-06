@@ -125,6 +125,7 @@
     <Compile Include="Assets/orbit_camera.cs" />
     <Compile Include="Assets/RosMessages/Sensor/msg/ImageMsg.cs" />
     <Compile Include="Assets/RosMessages/Std/msg/ByteMsg.cs" />
+    <Compile Include="Assets/point_cloud_sub_local.cs" />
     <Compile Include="Assets/RosMessages/Geometry/msg/WrenchStampedMsg.cs" />
     <Compile Include="Assets/RosMessages/Sensor/msg/IlluminanceMsg.cs" />
     <Compile Include="Assets/RosMessages/Std/msg/UInt64MultiArrayMsg.cs" />
