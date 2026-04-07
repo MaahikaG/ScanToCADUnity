@@ -163,7 +163,7 @@ public class VoxelRenderer : MonoBehaviour
         ProcessStartInfo psi = new ProcessStartInfo
         {
             FileName               = pythonPath,
-            Arguments              = scriptPath,
+            Arguments              = "-u " + scriptPath,  // -u forces unbuffered output
             UseShellExecute        = false,
             RedirectStandardOutput = true,
             RedirectStandardError  = true,
