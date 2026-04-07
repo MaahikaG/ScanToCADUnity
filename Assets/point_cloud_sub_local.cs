@@ -121,6 +121,8 @@ public class VoxelRenderer : MonoBehaviour
         trigger.data = true;
         ros.Publish(exportTopic, trigger);
 
+        ClearPointCloud();
+        
         StartCoroutine(SaveAndPollLocally());
     }
 
