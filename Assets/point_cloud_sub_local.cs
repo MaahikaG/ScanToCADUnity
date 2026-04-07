@@ -36,6 +36,9 @@ public class VoxelRenderer : MonoBehaviour
     private Button exportButton;
     private Text   exportLabel;
 
+    public string clearScanTopic = "/clear_scan";
+
+
     // CAD model display
     private GameObject cadModelObject;
 
@@ -53,6 +56,8 @@ public class VoxelRenderer : MonoBehaviour
         ros.Subscribe<PointCloud2Msg>(topicName, OnPointCloudReceived);
         ros.RegisterPublisher<BoolMsg>(scanCompleteTopic);
         ros.RegisterPublisher<BoolMsg>(exportTopic);
+        ros.RegisterPublisher<BoolMsg>(clearScanTopic);
+
 
         system = GetComponent<ParticleSystem>();
         var main = system.main;
@@ -61,8 +66,7 @@ public class VoxelRenderer : MonoBehaviour
         main.playOnAwake       = false;
         main.loop              = false;
         var emission = system.emission;
-        emission.rateOverTime  = 0;
-
+        emission.rateOverTime  = 0;      
         CreateExportButton();
     }
 
@@ -121,8 +125,7 @@ public class VoxelRenderer : MonoBehaviour
         trigger.data = true;
         ros.Publish(exportTopic, trigger);
 
-        ClearPointCloud();
-        
+
         StartCoroutine(SaveAndPollLocally());
     }
 
@@ -239,6 +242,8 @@ public class VoxelRenderer : MonoBehaviour
         exportLabel.text          = "CAD model loaded!";
         exportButton.interactable = true;
         UnityEngine.Debug.Log("CAD model displayed successfully.");
+
+        ClearPointCloud();
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -370,12 +375,18 @@ public class VoxelRenderer : MonoBehaviour
         voxelsUpdated = true;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
     public void ClearPointCloud()
     {
         particleList.Clear();
         originalPoints.Clear();
         system.Clear();
         voxelsUpdated = false;
+
+        // Tell ROS node to clear its accumulated points too
+        BoolMsg clear = new BoolMsg();
+        clear.data = true;
+        ros.Publish(clearScanTopic, clear);
     }
+
+    // ─────────────────────────────────────────────────────────────────────────
 }
